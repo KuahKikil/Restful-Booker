@@ -20,7 +20,6 @@ public class ResfulBooker {
      * 2. Get Booking = GET
      * 3. Create Booking = POST
      *
-     * ===BOOKING===
      * B. Test Dengan Auth
      * 1. Update Booking = PUT
      * 2. Partial Update Booking = PATCH
@@ -134,6 +133,11 @@ public class ResfulBooker {
     //  1. Update Booking = PUT
     @Test
     public void UpdateBooking() {
+        if (idBook == null) {
+            idBook = sendObjectReturnId();
+        }
+        System.out.println("baseUri: https://restful-booker.herokuapp.com/booking/" + idBook);
+
         System.out.println("Update Booking");
         String requestBody = "{\n" +
                 "    \"firstname\" : \"James\",\n" +
@@ -148,7 +152,7 @@ public class ResfulBooker {
                 "}";
 
         Response response = given()
-                .baseUri("https://restful-booker.herokuapp.com/booking/3506")
+                .baseUri("https://restful-booker.herokuapp.com/booking/" + idBook)
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
                 .header("Cookie", "token=" + token)
@@ -156,13 +160,17 @@ public class ResfulBooker {
                 .when()
                 .put();
         Assert.assertEquals(response.statusCode(), 200, "Status code should be 200");
-        System.out.println(response.asPrettyString());
+        System.out.println("response" + response.asPrettyString());
 
     }
 
     // 2. Partial Update Booking = PATCH
     @Test
     public void PartialUpdateBooking() {
+        if (idBook == null) {
+            idBook = sendObjectReturnId();
+        }
+        System.out.println("baseUri: https://restful-booker.herokuapp.com/booking/" + idBook);
         System.out.println("Update Booking Partial");
         String requestBody = "{\n" +
                 "    \"firstname\" : \"Indra\",\n" +
@@ -170,15 +178,17 @@ public class ResfulBooker {
                 "}";
 
         Response response = given()
-                .baseUri("https://restful-booker.herokuapp.com/booking/3506")
+                .baseUri("https://restful-booker.herokuapp.com/booking/" + idBook)
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json")
                 .header("Cookie", "token=" + token)
+                .log().all()
                 .body(requestBody)
                 .when()
                 .patch();
         Assert.assertEquals(response.statusCode(), 200, "Status code should be 200");
-        System.out.println(response.asPrettyString());
+        Assert.assertTrue(response.jsonPath().getString("firstname").equals("Indra"), "Firstname should be Indra");
+        System.out.println("response" + response.asPrettyString());
     }
 
     // 3. Delete Booking = DELETE
