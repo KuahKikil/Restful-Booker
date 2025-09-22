@@ -2,8 +2,8 @@
 <suite name="API Automation">
     <test name="MyTestGroup">
         <parameter name="program" value="API Automation Bootcamp"></parameter>
-        <classes>
-            <class name="com.naniek.restassured.BelajarAutomation.API.ResfulBooker" />
-        </classes>
+        <packages>
+            <package name="com.naniek.restassured.BelajarAutomation.API.scenario" />
+        </packages>
     </test>
 </suite>

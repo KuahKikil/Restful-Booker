@@ -1,4 +1,4 @@
-package com.naniek.restassured.BelajarAutomation.API.scenario;
+package scenario;
 
 import com.naniek.restassured.BelajarAutomation.API.apiengine.ApiCollection;
 import io.restassured.response.Response;

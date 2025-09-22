@@ -1,14 +1,11 @@
-package com.naniek.restassured.BelajarAutomation.API.scenario;
+package scenario;
 
 import com.naniek.restassured.BelajarAutomation.API.apiengine.ApiCollection;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.equalTo;
 
 public class Scenario_Implementation {
     public String token;

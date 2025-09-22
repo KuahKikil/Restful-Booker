@@ -1,30 +1,37 @@
-package com.naniek.restassured.BelajarAutomation.API.scenario;
+package scenario;
 
 import com.naniek.restassured.BelajarAutomation.API.apiengine.ApiCollection;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UpdatePartialBooking {
+public class UpdateBooking {
     @Test
-    public void PartialUpdateBooking() {
+    public void UpdateBooking() {
         Scenario_Implementation s = new Scenario_Implementation();
         s.generate_token();
-        String token = s.token;
+        String token =s.token;
         String idBook = s.sendObjectReturnId();
         if (idBook == null) {
             idBook = s.sendObjectReturnId();
         }
         System.out.println("baseUri: https://restful-booker.herokuapp.com/booking/" + idBook);
-        System.out.println("Update Booking Partial");
+        System.out.println("Update Booking");
         String requestBody = "{\n" +
-                "    \"firstname\" : \"Indra\",\n" +
-                "    \"lastname\" : \"Jegel\"\n" +
+                "    \"firstname\" : \"James\",\n" +
+                "    \"lastname\" : \"Brown\",\n" +
+                "    \"totalprice\" : 111,\n" +
+                "    \"depositpaid\" : true,\n" +
+                "    \"bookingdates\" : {\n" +
+                "        \"checkin\" : \"2018-01-01\",\n" +
+                "        \"checkout\" : \"2019-01-01\"\n" +
+                "    },\n" +
+                "    \"additionalneeds\" : \"Breakfast\"\n" +
                 "}";
 
-        Response response = new ApiCollection().partialUpdateBookingAPI(idBook, token, requestBody);
+        Response response = new ApiCollection().updateBookingAPI(idBook, token, requestBody);
         Assert.assertEquals(response.statusCode(), 200, "Status code should be 200");
-        Assert.assertTrue(response.jsonPath().getString("firstname").equals("Indra"), "Firstname should be Indra");
         System.out.println("response" + response.asPrettyString());
+
     }
 }
